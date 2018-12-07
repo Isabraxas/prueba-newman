@@ -1,0 +1,24 @@
+{
+  "id": "3520cae6-df9e-7745-3304-1c3a7e1f541a",
+  "name": "testing.viridian",
+  "values": [
+    {
+      "key": "host",
+      "value": "testing.viridian.ltd",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    },
+    {
+      "key": "port",
+      "value": "8091",
+      "description": "",
+      "type": "text",
+      "enabled": true
+    }
+  ],
+  "timestamp": 1544196480901,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-12-07T16:07:53.871Z",
+  "_postman_exported_using": "Postman/5.5.2"
+}
