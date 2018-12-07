@@ -1,0 +1,967 @@
+{
+	"info": {
+		"name": "GreenBank-HappyPath",
+		"_postman_id": "837fc191-d565-56be-a72c-db399136d68b",
+		"description": "Interfaces del Banco para VIRIDIAN Digital Banking\rTodas las siguientes interfaces corresponden a los endpoints que el Banco debe disponer para el funcionamiento de VIRIDIAN Digital Banking.\r",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "vdbUserPass",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36fe3157-49c8-427e-ba29-5b5633bdbd9b",
+								"exec": [
+									"pm.test(\"Login User - TEST\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"alias\");",
+									"    pm.expect(jsonData).to.have.property(\"customerCode\");",
+									"    pm.expect(jsonData).to.have.property(\"secondPassType\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3bd46b08-84e6-4828-95d7-d84f159f165e",
+								"exec": [
+									"//postman.clearGlobalVariables();",
+									"// Set this variables from json file",
+									"//pm.globals.set(\"user\", \"geremy1\");",
+									"//pm.globals.set(\"user\", \"celia1\");",
+									"//pm.globals.set(\"pass\", \"TQZs8jm42IuiNPp98Yqd6w==\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"{{user}}\",\n  \"pass\": \"{{password}}\",\n  \"trnID\": \"{{trnID}}\",\n  \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbUserPass",
+						"description": "login - Esta interface sirve para verificar, para un usuario, si la contraseña de la actual Banca por Internet del Banco está correcta."
+					},
+					"response": []
+				},
+				{
+					"name": "vdbUserPass2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d240893d-ade1-4361-b65b-e6bfc46a2ee7",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"FB-08340033-0005769769001\",\n    \"user\": \"jadizar1\",\n    \"secondPass\": \"\",\n    \"channelCode\": \"1\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbUserPass2",
+						"description": "login - Esta interface sirve para verificar, para un usuario, si su clave transaccional o BecToken están correctos."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Data",
+			"item": [
+				{
+					"name": "vdbUserData",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e0501d15-04fb-4d18-b2e0-21211cca5b16",
+								"exec": [
+									"pm.test(\"Getting UserData - TEST\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"userName\");",
+									"    pm.expect(jsonData).to.have.property(\"userEmail\");",
+									"    pm.expect(jsonData).to.have.property(\"userPhone\");",
+									"    pm.expect(jsonData).to.have.property(\"userAddress\");",
+									"    pm.expect(jsonData).to.have.property(\"branchCode\");",
+									"    pm.expect(jsonData).to.have.property(\"officeCode\");",
+									"    pm.expect(jsonData).to.have.property(\"userDailyLimit\");",
+									"    pm.expect(jsonData).to.have.property(\"userDailyLimitUsed\");",
+									"    pm.expect(jsonData).to.have.property(\"clientCode\");",
+									"    pm.expect(jsonData).to.have.property(\"clientName\");",
+									"    pm.expect(jsonData).to.have.property(\"clientDocID\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"user\": \"{{user}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbUserData",
+						"description": "Esta interface sirve para consultar los datos de un usuario y devuelve la lista de todas las cuentas o productos del usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbUserAccounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "da80e88b-ed18-4235-a683-3404b2f8dc52",
+								"exec": [
+									"pm.test(\"Getting UserAccounts - TEST\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"accountList\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2ea62810-1a3b-448d-ae7e-a20206f3d3de",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"user\": \"{{user}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbUserAccounts",
+						"description": "Esta interface sirve para consultar las cuentas de un usuario, devuelve la lista de todas las cuentas o productos del usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbAccountHistory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "96e2b173-5388-4f14-80a1-58c66a3ae706",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"accountHeader\");",
+									"    pm.expect(jsonData).to.have.property(\"accountDetailList\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"user\": \"{{user}}\",\n    \"accountCode\": \"{{accountCACC1}}\",\n    \"accountInternalCode\": \"{{internalCode}}\",\n    \"accountTypeCode\": \"{{accountTypeCode1}}\",\n    \"accountBranchCode\": \"{{accountBranchCode1}}\",\n    \"page\": \"0\",\n    \"search\": \"\",\n    \"searchDateStart\": \"\",\n    \"searchDateEnd\": \"\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbAccountHistory",
+						"description": "login"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbBeneficiary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe2bd36b-efc3-40f0-a752-0a3ff1677ddf",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"beneficiaryList\");    ",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"user\": \"{{user}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbBeneficiary",
+						"description": "Esta interface sirve para obtener las cuentas de terceros, en el mismo Banco o en otros bancos, que tenga el usuario afiliados en su banca por internet."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfers / Transactions",
+			"item": [
+				{
+					"name": "vdbTransferOwnAccounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a8df0a6c-bcb9-430e-be1e-a25b389cfaa6",
+								"exec": [
+									"pm.test(\"Transfer Between Own Accounts - TEST\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    pm.globals.set(\"currentTrnId\",jsonData[\"trnID\"]);",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d0291842-85c9-40cf-9aa6-f3e7322d8543",
+								"exec": [
+									"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+									"pm.globals.set(\"newTrnID\",newTrnID);",
+									"",
+									"function randomBetween(min, max){",
+									"    return Math.floor(Math.random()*(max-min+1)+min);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{newTrnID}}\",\n    \"accountCode\": \"{{accountCACC1}}\",\n    \"accountInternalCode\": \"\",\n    \"accountTypeCode\": \"{{accountTypeCode1}}\",\n    \"accountBranchCode\": \"{{accountBranchCode1}}\",\n    \"accountCodeCredit\": \"{{accountCACC2O}}\",\n    \"currency\": \"{{currency}}\",\n    \"amount\": \"123.45\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"clientNote\": \"TEST - movimiento entre cuentas\",\n    \"ALMsource\": \"\",\n    \"ALMusage\": \"\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbTransferOwnAccounts",
+						"description": "Esta interface sirve para realizar transferencias entre cuentas del mismo banco. Si están presentes los datos de email o número de celular, el Banco procederá a notificar al beneficiario de la transferencia"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbTransferBankAccounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3209cc67-7409-49cb-833a-3e6e4b265f80",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"referenceID\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "16849194-d417-4d64-bd25-83022e1333eb",
+								"exec": [
+									"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+									"pm.globals.set(\"newTrnID\",newTrnID);",
+									"",
+									"function randomBetween(min, max){",
+									"    return Math.floor(Math.random()*(max-min+1)+min);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{newTrnID}}\",\n    \"accountCode\": \"{{accountCACC1}}\",\n    \"accountInternalCode\": \"\",\n    \"accountTypeCode\": \"{{accountTypeCode1}}\",\n    \"accountBranchCode\": \"{{accountBranchCode1}}\",\n    \"accountCodeCredit\": \"{{otherAccount}}\",\n    \"currency\": \"{{currency}}\",\n    \"amount\": \"77887.40\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"clientNote\": \"TEST - movimiento entre cuentas del mismo banco\",\n    \"ALMsource\": \"\",\n    \"ALMusage\": \"\",\n    \"channelCode\": \"{{channelCode}}\",\n    \"qrID\":\"\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbTransferBankAccounts",
+						"description": "Esta interface sirve para realizar transferencias entre cuentas del mismo banco. Si están presentes los datos de email o número de celular, el Banco procederá a notificar al beneficiario de la transferencia"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbTransferOtherBank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74a1fefe-dbf4-4d43-af17-6e6f5e667c74",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"referenceID\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c313e669-caf4-4ec2-98e2-168babb70539",
+								"exec": [
+									"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+									"pm.globals.set(\"newTrnID\",newTrnID);",
+									"",
+									"function randomBetween(min, max){",
+									"    return Math.floor(Math.random()*(max-min+1)+min);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{newTrnID}}\",\n    \"accountCode\": \"{{accountCACC1}}\",\n    \"accountInternalCode\": \"\",\n    \"accountTypeCode\": \"{{accountTypeCode1}}\",\n    \"accountBranchCode\": \"{{accountBranchCode1}}\",\n    \"obAccountCode\": \"{{otherBankAccount}}\",\n    \"obAccountCurrency\": \"{{currency}}\",\n    \"obAccountType\": \"CCAD\",\n    \"obBeneficiaryName\": \"Juan perez perez\",\n    \"obDocIDNumber\": \"98765432\",\n    \"obDocIDType\": \"CEDULA\",\n    \"obBankCode\": \"1001\",\n    \"obBankBranch\": \"LPZ\",\n    \"currency\": \"{{currency}}\",\n    \"amount\": \"125.60\",\n    \"email\": \"\",\n    \"phone\": \"\",\n    \"clientNote\": \"TEST - movimiento a cuentas de otro banco\",\n    \"ALMsource\": \"\",\n    \"ALMusage\": \"\",\n    \"channelCode\": \"1\",\n    \"qrServiceCode\":\"\",\n    \"qrID\":\"\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbTransferOtherBank",
+						"description": "Esta interface sirve para realizar transferencias a cuentas de otros bancos. Si están presentes los datos de email o número de celular, el Banco procederá a notificar al beneficiario de la transferencia"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbQueryTransaction",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7335e85a-9dd1-4dec-af52-9a73749c9a51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"trnIDOri\");",
+									"    pm.expect(jsonData).to.have.property(\"referenceIDOri\");",
+									"    pm.expect(jsonData).to.have.property(\"transactionState\");",
+									"    pm.expect(jsonData).to.have.property(\"codErrorOri\");",
+									"    pm.expect(jsonData).to.have.property(\"descErrorOri\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"trnIDOri\": \"{{currentTrnId}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbQueryTransaction",
+						"description": "login"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbLoanPay",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d1d37641-1f1e-4740-8c98-0e5d427f3590",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b95d5404-80c8-4bed-b006-153da5ec3969",
+								"exec": [
+									"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+									"pm.globals.unset(\"variable_key\");pm.globals.set(\"newTrnID\",newTrnID);",
+									"",
+									"function randomBetween(min, max){",
+									"    return Math.floor(Math.random()*(max-min+1)+min);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{newTrnID}}\",\n    \"accountCode\": \"{{accountPR}}\",\n    \"accountBranchCode\": \"{{accountPRBranchCode}}\",\n    \"currency\": \"{{accountPRCurrency}}\",\n    \"amount\": \"1000.0\",\n    \"debitAccountCode\": \"{{accountCACC2}}\",\n    \"debitAccountInternalCode\": \"\",\n    \"debitAccountTypeCode\": \"{{accountTypeCode2}}\",\n    \"debitAccountBranchCode\": \"{{accountBranchCode2}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbLoanPay",
+						"description": "Esta interface sirve para pagar un préstamo"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbCreditCardPay",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "71d61cb6-e576-4af8-9fa6-16925b4b51c8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"referenceID\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "40bf5164-d68f-4589-b214-133f416a50e3",
+								"exec": [
+									"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+									"pm.globals.set(\"newTrnID\",newTrnID);",
+									"",
+									"function randomBetween(min, max){",
+									"    return Math.floor(Math.random()*(max-min+1)+min);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{newTrnID}}\",\n    \"accountInternalCode\": \"{{accountTC}}\",\n    \"accountBranchCode\": \"{{accountTCBranchCode}}\",\n    \"currency\": \"{{accountTCCurrency}}\",\n    \"amount\": \"500\",\n    \"debitAccountCode\": \"{{accountCACC2}}\",\n    \"debitAccountInternalCode\": \"\",\n    \"debitAccountTypeCode\": \"{{accountTypeCode2}}\",\n    \"debitAccountBranchCode\": \"{{accountBranchCode2}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbCreditCardPay",
+						"description": "Esta interface sirve para pagar una tarjeta de crédito"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbPrepaidCardPay",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f3b02a4d-ba20-43d0-a4e6-b0cb8e9eaa6d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"referenceID\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1cf14bcb-d128-4b32-a408-cae9488fa5d5",
+								"exec": [
+									"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+									"pm.globals.set(\"newTrnID\",newTrnID);",
+									"",
+									"function randomBetween(min, max){",
+									"    return Math.floor(Math.random()*(max-min+1)+min);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{newTrnID}}\",\n    \"accountInternalCode\": \"{{accountTPP}}\",\n    \"accountBranchCode\": \"{{accountTPPBranchCode}}\",\n    \"currency\": \"{{accountTPPCurrency}}\",\n    \"amount\": \"300.0\",\n    \"debitAccountCode\": \"{{accountCACC2}}\",\n    \"debitAccountInternalCode\": \"\",\n    \"debitAccountTypeCode\": \"{{accountTypeCode2}}\",\n    \"debitAccountBranchCode\": \"{{accountBranchCode2}}\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbPrepaidCardPay",
+						"description": "Esta interface sirve para pagar una tarjeta prepagada"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbQueryCharges",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6da3134b-f78a-459b-ad06-cb82cff7ce03",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    console.log(\"Testing response...\");",
+									"    console.log(\"checking response status\");",
+									"    pm.response.to.have.status(200);",
+									"    console.log(\"DONE\");",
+									"    console.log(\"checking response body structure\");",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"trnID\");",
+									"    pm.expect(jsonData).to.have.property(\"codError\");",
+									"    pm.expect(jsonData).to.have.property(\"descError\");",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData).to.have.property(\"chargeCurrency\");",
+									"    pm.expect(jsonData).to.have.property(\"chargeAmount\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"check response data\");",
+									"    pm.expect(jsonData[\"codError\"]).to.equal(\"0\");",
+									"    console.log(\"DONE\");",
+									"    console.log(\"Test completed\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"user\": \"{{user}}\",\n    \"transactionCode\": \"6\",\n    \"accountTypeCode\": \"TC\",\n    \"accountCode\": \"\",\n    \"accountInternalCode\": \"{{accountTC}}\",\n    \"accountBranchCode\": \"{{accountTCBranchCode}}\",\n    \"transactionCurrency\": \"{{accountTCCurrency}}\",\n    \"transactionAmount\": \"120\",\n    \"channelCode\": \"{{channelCode}}\"\n}\n"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbQueryCharges",
+						"description": "Esta interface sirve para consultar los cargos o comisiones que se cobrarán en una transacción. Por ahora solamente usada para transferencias a otros bancos y recarga de tarjeta prepagada, pero ampliable a cualquier otra transacción.\n\n3-3 para TRASPASO A CUENTAS DE OTRO BANCO\n90-264 para PAGO TARJETA PREPAGADA"
+					},
+					"response": []
+				},
+				{
+					"name": "vdbServiceQuery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"companyCode\": \"\",\n    \"serviceCode\": \"\",\n    \"identifierList\": \"\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbServiceQuery",
+						"description": "Esta interface sirve para consultar las facturas pendientes de pago de un cliente."
+					},
+					"response": []
+				},
+				{
+					"name": "vdbServicePayment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic dXNlcjE6c2VzYW1v"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trnID\": \"{{trnID}}\",\n    \"companyCode\": \"\",\n    \"serviceCode\": \"\",\n    \"identifierList\": \"\",\n    \"invoiceNumber\": \"\",\n    \"currency\": \"\",\n    \"amount\": \"\",\n    \"debitAccountCode\": \"\",\n    \"debitAccountInternalCode\": \"\",\n    \"debitAccountTypeCode\": \"\",\n    \"debitAccountBranchCode\": \"\",\n    \"channelCode\": \"{{channelCode}}\"\n}"
+						},
+						"url": "http://{{host}}:{{port}}/vdb/vdbServicePayment",
+						"description": "Esta interface sirve para pagar una factura pendiente de pago. No se pueden pagar varias facturas en una sola transacción."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0901a924-26e2-47dc-8cc7-79dacd0b6b0e",
+				"type": "text/javascript",
+				"exec": [
+					"// variables to set",
+					"console.log(\"SETTING VARIABLES\");",
+					"var newTrnID = \"GB-\"+randomBetween(10000, 99999)+\"-\"+randomBetween(100, 999)+\"-\"+randomBetween(100000000, 999999999);",
+					"pm.globals.set(\"user\", \"eva7\");",
+					"pm.globals.set(\"password\", \"TQZs8jm42IuiNPp98Yqd6w==\");",
+					"pm.globals.set(\"trnID\", newTrnID);",
+					"pm.globals.set(\"channelCode\", \"1\");",
+					"pm.globals.set(\"accountCACC1\",\"61679454650896\");",
+					"pm.globals.set(\"internalCode\",\"\");",
+					"pm.globals.set(\"accountTypeCode1\",\"CC\");",
+					"pm.globals.set(\"accountBranchCode1\",\"50\");",
+					"pm.globals.set(\"accountCACC2O\",\"50765057477526\");",
+					"pm.globals.set(\"currency\",\"1\");",
+					"pm.globals.set(\"otherAccount\",\"88850908302591\");",
+					"pm.globals.set(\"otherBankAccount\",\"OB151515151515\");",
+					"",
+					"pm.globals.set(\"accountCACC2\",\"88850908302591\");",
+					"pm.globals.set(\"accountTypeCode2\",\"CC\");",
+					"pm.globals.set(\"accountBranchCode2\",\"10\");",
+					"",
+					"pm.globals.set(\"accountPR\",\"93864067758655\");",
+					"pm.globals.set(\"accountPRBranchCode\",\"40\");",
+					"pm.globals.set(\"accountPRCurrency\",\"2\");",
+					"",
+					"pm.globals.set(\"accountTCCurrency\",\"1\");",
+					"pm.globals.set(\"accountTC\",\"425896508\");",
+					"pm.globals.set(\"accountTCBranchCode\",\"10\");",
+					"",
+					"pm.globals.set(\"accountTPPCurrency\",\"1\");",
+					"pm.globals.set(\"accountTPP\",\"3425112884434\");",
+					"pm.globals.set(\"accountTPPBranchCode\",\"40\");",
+					"",
+					"function randomBetween(min, max){",
+					"    return Math.floor(Math.random()*(max-min+1)+min);",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0b061c08-5faf-49ae-b5ce-86372d10934d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
